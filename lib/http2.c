@@ -56,8 +56,6 @@
 #define NGHTTP2_HAS_SET_LOCAL_WINDOW_SIZE 1
 #endif
 
-#define HTTP2_CONNECTION_WINDOW_SIZE (32 * 1024 * 1024) /* 32 MB */
-
 #ifdef DEBUG_HTTP2
 #define H2BUGF(x) x
 #else
@@ -2295,7 +2293,7 @@ CURLcode Curl_http2_switched(struct Curl_easy *data,
   }
 
   rv = nghttp2_session_set_local_window_size(httpc->h2, NGHTTP2_FLAG_NONE, 0,
-                                             HTTP2_CONNECTION_WINDOW_SIZE);
+                                             DEFAULT_STREAM_WINDOW_SIZE);
   if(rv) {
     failf(data, "nghttp2_session_set_local_window_size() failed: %s(%d)",
           nghttp2_strerror(rv), rv);
